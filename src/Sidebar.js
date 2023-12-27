@@ -14,9 +14,11 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import db from './firebase';
+import { useStateValue } from './StateProvider';
 
 function Sidebar() {
   const [channels , setChannels] = useState([]);
+  const [{user}] = useStateValue();
   useEffect(()=>{
     //Run this code once when the sidebar component loads. Code is run once because the square brackets are empty
     db.collection('rooms').onSnapshot(snapshot => (
@@ -33,7 +35,7 @@ function Sidebar() {
             <h2>User1</h2>
             <h3>
                 <FiberManualRecordIcon/>
-                Ainesh Sinha
+                {user?.displayName}
             </h3>
         </div>
         <CreateIcon/>
